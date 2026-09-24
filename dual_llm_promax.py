@@ -1,19 +1,18 @@
 """
 Dual LLM Pro Max - entry point
-Pair sections: ChatGPT+Claude, Claude+Gemini, Gemini+Grok, ... + Universal
+Separate pair sections + Universal (Any + Any)
 """
 from pathlib import Path
 
 _root = Path(__file__).parent
-_core = _root / "dual_llm_core.py"
-if not _core.exists() or _core.stat().st_size < 1000:
+if not (_root / "dual_llm_core.py").exists() or (_root / "dual_llm_core.py").stat().st_size < 1000:
     import extract_core
     extract_core.main()
 
 from dual_llm_ui import create_ui
-from dual_llm_core import DualLLM, MODEL_CONFIGS, DEFAULT_PROMPTS, PAIR_PRESETS
+from dual_llm_core import DualLLM, MODEL_CONFIGS, DEFAULT_PROMPTS
 
-__all__ = ["create_ui", "DualLLM", "MODEL_CONFIGS", "DEFAULT_PROMPTS", "PAIR_PRESETS"]
+__all__ = ["create_ui", "DualLLM", "MODEL_CONFIGS", "DEFAULT_PROMPTS"]
 
 if __name__ == "__main__":
     import argparse
