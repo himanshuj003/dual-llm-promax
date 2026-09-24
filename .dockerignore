@@ -1,0 +1,10 @@
+.env
+__pycache__
+*.pyc
+*.pyo
+.git
+.venv
+venv
+*.json
+*.md
+!README.md
