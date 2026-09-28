@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
-"""Extract app.py from app.py.gz.b64 (run once after clone if needed)."""
+"""Build app.py from compressed parts (for Docker / Render)."""
 import base64, gzip
 from pathlib import Path
 
 def main():
-    b64 = Path(__file__).with_name("app.py.gz.b64")
-    out = Path(__file__).with_name("app.py")
-    if out.exists() and out.stat().st_size > 1000:
-        print("app.py already present")
-        return
-    data = gzip.decompress(base64.b64decode(b64.read_text().strip()))
+    here = Path(__file__).parent
+    out = here / "app.py"
+    parts = sorted(here.glob("app.py.gz.b64.part*"))
+    single = here / "app.py.gz.b64"
+    if single.exists():
+        b64 = single.read_text().strip()
+    elif parts:
+        b64 = "".join(p.read_text().strip() for p in parts)
+    else:
+        raise SystemExit("No app.py.gz.b64 or part files found")
+    data = gzip.decompress(base64.b64decode(b64))
     out.write_bytes(data)
-    print("Wrote", out, "bytes", len(data))
+    print("Wrote", out, len(data), "bytes")
 
 if __name__ == "__main__":
     main()
