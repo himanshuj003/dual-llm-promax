@@ -1,36 +1,41 @@
-# Free permanent hosting (Render)
+# Free permanent hosting — Render
 
-Hugging Face Gradio Spaces now require PRO. Use **Render free** instead.
+Hugging Face Gradio Spaces require PRO now. Use **Render free** instead.
 
-## Deploy in ~5 minutes
+## 5-minute deploy
 
-1. Create a free account: https://render.com
-2. Dashboard → **New** → **Web Service**
-3. Connect GitHub → select repo `himanshuj003/dual-llm-promax`
-4. Settings:
+1. Sign up free: https://render.com (GitHub login works)
+2. **New +** → **Web Service**
+3. Connect the repo: `himanshuj003/dual-llm-promax`
+4. Configure:
+   - **Name:** dual-llm-promax
    - **Root Directory:** `space`
    - **Runtime:** Docker
-   - **Plan:** Free
-5. Add environment variables (optional — users can also paste keys in the UI):
+   - **Instance type:** Free
+5. (Optional) Environment variables — users can also paste keys in the UI:
    - `OPENAI_API_KEY`
    - `ANTHROPIC_API_KEY`
    - `GOOGLE_API_KEY`
    - `XAI_API_KEY`
 6. Click **Create Web Service**
 
-Your permanent URL will look like:
+After build finishes, your public URL is:
 
 `https://dual-llm-promax.onrender.com`
 
-### Free plan notes
+(or whatever name you chose)
 
-- Spins down after ~15 minutes of idle time
-- First request after sleep can take 30–60 seconds (cold start)
-- Fully free — no card required for the free tier
+## Free plan behavior
 
-## Files used
+- Sleeps after ~15 min idle
+- First visit after sleep: 30–60 sec cold start
+- No credit card required for free tier
 
-- `space/app.py` — Dual LLM Gradio app
-- `space/Dockerfile`
-- `space/requirements.txt`
-- `space/render.yaml`
+## Temporary link (works now)
+
+Until Render is ready, you can still use Gradio share when launched:
+`python space/app.py` with `share=True` (local) or the existing gradio.live link.
+
+## Source
+
+https://github.com/himanshuj003/dual-llm-promax
